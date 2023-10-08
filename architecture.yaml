@@ -1,0 +1,25 @@
+- network:
+    - client.py: To send/receive data to/from the server
+
+- web app:
+    - app.py: To run the web app
+    - templates: To store the HTML files
+    - static: To store the CSS and JS files
+
+- modules:
+    - preprocessor.py: To pre-process the "raw_unlabeled_data"
+    - classify.py: To make predictions on the "cln_unlabeled_data"
+    - retrain.py: To retrain the model with the most confident "public_network_data"
+    - paths.py: To store the paths of the data
+
+- model:
+    - model.pkl: Binary file
+
+- data:
+    - kepler_data.csv: To store the Kepler data
+    - public_network_data.csv: To store the data from the public network
+    - cln_unlabeled_data.csv: To store the data from the telescope sensor after pre-processing
+    - pseudo_labeled_data.csv: To store the processed data by the ML model
+
+- input:
+    - raw_unlabeled_data.csv: To store the data from the telescope sensor

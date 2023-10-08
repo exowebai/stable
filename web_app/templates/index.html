@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="background-container">
+        <section class="header">
+            <div class="header_content">
+                <h1>EXOPLANET NETWORK DATA CENTER</h1>
+                <div class="content_p">A centralised network for exoplanet detection, processing and broadcast.</div>
+                <div>
+                    <button type="button" onclick="scrollToTable()"><span class="button_span"></span>Explore latest results</button>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section_container">
+            <section id="objective" class="section">
+                <div class="section-text">
+                    <h2>OUR OBJECTIVE</h2>
+                    <h4>WHAT IS THE PURPOSE OF THIS PROJECT ?</h4>
+                    <p>
+                        Exoplanets, these celestial bodies orbiting stars beyond our solar system, have become a major subject of study due to their immense potential. 
+                        Indeed, the possibility of the existence of habitable planets just like ours allowed for extensive research in the hopes of better understanding
+                        the world that we live in and how it functions.  
+                        <br><br>
+                        Up until today there have been numerous discoveries of exoplanet candidates, using various techniques to detect them, such as measuring the slight changes in the brightness
+                        of the stars they orbit around for when they pass in front of it, or even detecting the movement patterns of the star due to the gravitational interactions around it. 
+                    </p>
+                </div>
+                <div class="img-container">
+                    <div class="img-content">
+                        <img src="../static/imgs/exoplanets_nasa_list.jpg" alt="discovered_exoplanet">
+                        <figcaption>Discovered potential exoplanet candidates</figcaption>
+                    </div>
+                    <div class="img-content">
+                        <img src="../static/imgs/exoplanet_transit.jpg" alt="exoplanet_transit_method">
+                        <figcaption>Transit method - measuring the brightness of a star when an exoplanet passes in front of it</figcaption>
+                    </div>
+                </div>
+                <div class="section-text">
+                    <p>
+                        Driven by this big interest in studying the possibilities of life on other planets, this project hopes to 
+                        help this cause, by organising, processing and classifying incoming data from telescopes all around the world, and then broadcasting it to the entire network. 
+                        This way, we can safely analyse and identify possible exoplanets with better efficiency and accuracy, as well as allow for scientists across the globe to connect and share their discoveries.
+                    </p>
+                </div>
+            </section>
+            <section id="how_it_works" class="section">
+                <div class="section-text">
+                    <h2>HOW IT WORKS</h2>
+                    <h4>HOW EXACTLY DOES IT WORK ?</h4>
+                    <p>
+                        Our web application is designed to assist the astronomy community in the detection and classification of exoplanets using Semi-Supervised Machine Learning. 
+                        Users are required to provide the relevant data pertaining to the planet they wish to classify. Subsequently, our application will categorize their planet into one of the following classes: confirmed, candidate, or false positive.
+                        <br><br>
+                        Our system encompasses three primary functions : 
+                        <ol>
+                            <li><span>Classification :</span> We receive unlabeled data collected from telescope sensors and sent by the clients, preprocess it, and apply our machine learning model to make predictions. This process generates pseudo-labeled data, which is then stored in the central server. </li>
+                            <li><span>Retraining :</span> In this project, we leverage Semi-Supervised Machine Learning, meaning that our model continuously learns and retrains itself. Initially, the model is trained on the original data, and subsequently, it undergoes further training using data from the network's public dataset. </li>
+                            <li><span>Data Collection and Storage :</span> Our distributed framework connects various clients (observatories) to the central server. The unlabeled data received after classification is subsequently stored in the network's public dataset and utilized in the retraining of the model.</li>
+                        </ol> 
+
+                    </p>
+                </div>
+            </section>
+            <section id="data_table" class="section">
+                <div class="section-text">
+                    <h2>LATEST RESULTS</h2>
+                    <div> Take a look at our most recent processed data results.</div>
+                    <div id="data-container"></div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+<!-- ------------------------------------- Javascript ------------------------------------- -->
+<!--fetch data-->
+<script>
+    // Fetch data from the server
+    fetch('/get_data')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('data-container');
+            const table = document.createElement('table');
+
+            // Create table header
+            const headerRow = table.insertRow(0);
+            for (const key in data[0]) {
+                if (key !== 'id') { // Skip adding the 'id' column to the header
+                    const headerCell = headerRow.insertCell(-1);
+                    headerCell.innerHTML = key;
+                    headerCell.classList.add('first-row-cell');
+                }
+            }
+
+            // Create table rows and cells
+            data.forEach(item => {
+                const row = table.insertRow(-1);
+
+                let rowContainsConfirmed = false; // Flag to track if the row contains "CONFIRMED"
+                let rowContainsFalsePositive = false;
+
+                for (const key in item) {
+                    if (key !== 'id') { // Skip adding the 'id' column to the row cells
+                        const cell = row.insertCell(-1);
+
+                        // Add an event listener to each cell for click events
+                        cell.addEventListener('click', () => {
+                            // Extract the row's data and redirect to the dynamic page
+                            const rowData = JSON.stringify(item);
+                            const idToTransmit = item.id; // Store the 'id' for transmission
+                            window.location.href = `/get_dynamic_data_info?data=${encodeURIComponent(rowData)}&id=${idToTransmit}`;
+                        });
+
+                        // Check if the cell contains "CONFIRMED" and set the text color to green
+                        if (item[key] === "CONFIRMED") {
+                            cell.style.backgroundColor = "green";
+                            rowContainsConfirmed = true;
+                        }
+                        else {
+                            if (item[key] === "FALSE POSITIVE") {
+                                cell.style.color = "red";
+                                rowContainsFalsePositive = true;
+                            }
+                        }
+
+                        cell.innerHTML = item[key];
+                    }
+                }
+
+                // If the row contains "CONFIRMED," set the text color of the entire row to green
+                if (rowContainsConfirmed) {
+                    for (const cell of row.cells) {
+                        cell.style.color = "#47d097";
+                    }
+                }
+                if (rowContainsFalsePositive) {
+                    for (const cell of row.cells) {
+                        cell.style.color = "red";
+                    }
+                }
+            });
+
+            container.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+
+{% endblock %}
+

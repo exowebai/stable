@@ -1,0 +1,399 @@
+/* Reset some default styles for consistency */
+*{
+    box-sizing: border-box;
+}
+
+body, h1, h2, p, ul, li, table {
+    margin: 0;
+    padding: 0;
+}
+
+.background-container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Basic styling for the body */
+body {
+    background-image: url('./imgs/starry_night.PNG');
+    background-attachment: fixed;
+    background-size: cover; /* Adjust to your preferred size */
+    background-repeat: no-repeat;
+    background-position: center center;
+    line-height: 1.5;
+    font-family: Arial, sans-serif, 'Poppins';
+    color: #fff; /* Updated text color to white */
+    padding: 20px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/* Header styles */
+h1 {
+    background-color: transparent; /* Removed background color */
+    color: #fff;
+    padding: 20px 0; /* Adjusted padding for better spacing */
+    text-align: center;
+}
+
+h3, h4{
+    color: #10b4de;
+}
+
+.header{
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)), url(imgs/exoplanets.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img{
+    width: 150px;
+}
+
+.nav-links{
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 15px;
+    position: relative;
+}
+
+.nav-links ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #10b4de;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-links ul li:hover::after{
+    width: 100%;
+}
+
+.header_content{
+    width: 100%;
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #ffffff;
+}
+
+.header_content h1{
+    font-size: 40px;
+    margin-top: 80px;
+}
+
+.content_p{
+    margin: 20px auto;
+    font-weight: 100;
+    line-height: 25px;
+}
+
+.section{
+    margin-bottom: 10%;
+    /* background-color: brown; */
+}
+
+.section h2{
+    color: #fbe382;
+}
+
+.section p{
+    text-align: justify;
+}
+
+/* Main content container */
+.section_container {
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for data container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Updated box shadow color */
+    margin-top: 20px;
+}
+
+.section-text{
+    margin: 0 auto;
+    width: 800px;
+}
+
+.section-text ol li span, .section-text ol li::marker{
+    font-weight: 600;
+    color:#10b4de;
+}
+
+.img-container{
+    width: 85%;
+    margin: 0 auto; /*center the container horizontally*/
+    display: flex;
+    justify-content: space-between;
+    padding: 3em;
+    /* background-color: #fbe382; */
+}
+.img-container .img-content{
+    width: 50%;
+    margin-right: 3em;
+    margin-left: 3em;
+    /* background-color: #10b4de; */
+    /* border: 3px solid #fff; */
+}
+.img-container .img-content img{
+    max-width: 100%;
+}
+
+figcaption{
+    text-align: center;
+    color: #fbe382
+}
+
+button{
+    width:200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #10b4de;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.button_span{
+    background: #10b4de;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: 0.5s;
+}
+
+button:hover span{
+    width: 100%;
+}
+
+button:hover{
+    border: none;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #333; /* Updated border color */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+.first-row-cell {
+    color: #10b4deed; /* Replace 'red' with your desired color */
+    font-weight: bold;
+}
+
+#data-container td:hover{
+    cursor: pointer;
+}
+
+/* Example: Styling for a form */
+.form {
+    margin-top: 20px;
+}
+
+/* Example: Styling for headings */
+h2 {
+    color: #10b4deed;
+    margin-top: 20px;
+}
+
+#data_table{
+    margin-top: 10%;
+}
+
+/* ---------------------- footer ---------------------- */
+.footer-container{
+    max-width: 1170px;
+    margin: auto;
+}
+.footer-row{
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+}
+.footer-col ul{
+    list-style: none;
+}
+
+.footer{
+    background-color: #24262b;
+    padding:70px 0;
+}
+.footer-col{
+    width: 25%;
+    padding: 0 15px;
+}
+.footer-col h4{
+    font-size: 18px;
+    color:#fff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+.footer-col h4::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom:-10px;
+    background-color:#10b4deed ;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.footer-col ul li:not(:last-child){
+    margin-bottom: 10px;
+}
+.footer-col ul li a{
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+    color: #fff;
+    padding-left: 8px;
+}
+.footer-col .contacts a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255,255,255,0.2);
+    margin-right: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #10b4deed;
+    transition: all 0.5s ease;
+}
+
+.footer-col .contacts a:hover{
+    color: #24262b;
+    background-color: #fff;
+}
+
+/* ---------------------- dynamic_data_info -------------------------------*/
+
+#data-info{
+    margin-bottom: 5%;
+}
+#info_meaning{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info-row{
+    flex: 1; /* Distribute available space equally among info-row divs */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    width: 45%;
+    vertical-align: middle;
+}
+
+.info-row div{
+    text-align: justify;
+}
+
+/* .parent {
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+  }
+  .child {
+    display: inline-block;
+    border: 1px solid red;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+  } */
+
+/* ------------------------------------------------------------------ */
+  /* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    table {
+        margin-top: 10px;
+        border: 1px solid white;
+    }
+}
+/* scroll up arrow */
+#scrollTopButton {
+    display: none; /* Initially hide the button */
+    position: fixed; /* Fixed position so it stays in the viewport */
+    bottom: 20px;
+    right: 20px; 
+    background-color: #10b4de; /* Button background color */
+    
+    border: none;
+    border-radius: 50%; /* Make it round */
+    width: 40px; /* Button width */
+    height: 40px; /* Button height */
+    cursor: pointer;
+}
+
+.button-content {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Ensure the content fills the button */
+    height: 100%; /* Ensure the content fills the button */
+  }
+
+#scrollTopButton:hover {
+    background-color: #0a88b8; /* Button background color on hover */
+}

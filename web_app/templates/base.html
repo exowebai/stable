@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exoplanet Network Data Center - Space Edition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="background-container">
+        <nav>
+            <a href="/">
+                <img src="../static/imgs/nasa_spacearc.gif" alt="logo" style="width: 170px; margin-left: -5em;">
+                <!-- <img src="../static/imgs/exoWebAi_logo.PNG" alt="logo" style="width: 130px"> -->
+            </a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/#objective">OUR OBJECTIVE</a></li>
+                    <li><a href="/#how_it_works">HOW IT WORKS</a></li>
+                    <li><a href="#" style="color:cornflowerblue;">{{ client_name }}</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    {% block content %}{% endblock %}
+    <!-- ------------------------- footer ------------------------- -->
+    <footer style="background-color: rgb(50, 50, 63);">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-col">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#more_info">More info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Nasa challenge</h4>
+                    <ul>
+                        <li><a href="https://www.spaceappschallenge.org/">Home page</a></li>
+                        <li><a href="https://www.spaceappschallenge.org/2023/">2023 challenge home page</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our project</h4>
+                    <ul>
+                        <li><a href="https://www.spaceappschallenge.org/2023/find-a-team/spacearc/">Our team</a></li>
+                        <li><a href="#">Exoplanet data source</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our socials</h4>
+                    <div class="contacts">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <button id="scrollTopButton" onclick="scrollToTop()">
+        <div class="button-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+            </svg>
+        </div>
+    </button>
+</body>
+</html>
+
+<!--scroll to table-->
+<script>
+    function scrollToTable() {
+        const tableContainer = document.getElementById('data-container');
+        
+        // Use scrollIntoView to scroll to the table container smoothly
+        tableContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Function to scroll to the top of the page
+    function scrollToTop() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+    }
+
+    // Show/hide the button based on scrolling
+    window.onscroll = function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollTopButton").style.display = "block";
+        } else {
+            document.getElementById("scrollTopButton").style.display = "none";
+        }
+    };
+
+</script>

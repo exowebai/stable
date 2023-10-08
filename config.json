@@ -1,0 +1,28 @@
+{
+    "PATHS": {
+        "KEPLER_DATA": "./data/kepler_data.csv",
+        "PUBLIC_DATA": "./data/public_network_data.csv",
+        "INPUT_DATA": "./input/raw_data.csv",
+        "CLN_DATA": "./data/cln_unlabeled_data.csv",
+        "PSEUDO_DATA": "./data/pseudo_labeled_data.csv",
+        "MODEL": "./model/model_kepler.pkl",
+        "MODEL2": "./model/model.pkl"
+    },
+
+    "COLUMNS": {
+        "EXPECTED":["koi_score", "koi_fpflag_nt", "koi_fpflag_ss",
+                    "koi_fpflag_co", "koi_impact", "koi_model_snr", 
+                    "koi_steff", "koi_slogg", "ra", "dec"],
+        "TARGET": "koi_disposition"
+    },
+
+    "CLIENT_NAME" : "client1",
+
+    "HOST" : "0.0.0.0",
+
+    "PORT" : 5000,
+
+    "PROBABILITY_THRESHOLD": 0.75,
+
+    "UPDATE_INTERVAL": 60
+}

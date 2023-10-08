@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="section_container">
+        <h2>More info</h2>
+        <div id="data-info">
+            <!-- Display the fetched data here -->
+        </div>
+
+        <h2>Term definition</h2>
+        <div id="info_meaning">
+            <div class="info-row">
+                <div>
+                    <h3>dec (Declination)</h3>
+                    <div>
+                        The celestial coordinate that specifies the north-south position of a star in the sky is called "declination". 
+                        It is measured in degrees and is analogous to latitude on Earth's surface.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_disposition</h3>
+                    <div>
+                        This is our target variable, meaning the prediction of our model. 
+                        This variable contains the three categories that the input planet may fall under, which are: Confirmed, Candidate, and False Positive.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_fpflag_co</h3>
+                    <div>
+                        A flag indicating that the observed signal source is likely a nearby star, 
+                        inferred from centroid measurements during and outside of transit or by comparing the transit signal strength in different regions of the target's pixels.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_fpflag_nt</h3>
+                    <div>
+                        A flag indicating if a Kepler Object of Interest (KOI) exhibits a light curve inconsistent with that of a transiting planet, potentially due to instrument artifacts, 
+                        non-eclipsing variable stars, spurious detections, or other factors.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_fpflag_ss</h3>
+                    <div>
+                        A flag identifying a Kepler Object of Interest (KOI) that shows significant secondary events, unusual transit shapes, or out-of-eclipse variability, 
+                        often suggesting the possibility of an eclipsing binary system or, in some cases, a self-luminous, hot Jupiter with a visible secondary eclipse.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_impact</h3>
+                    <div>
+                        A measurement of the sky-projected distance between the center of the star's disc and the center of the planet's disc at conjunction, normalized by the stellar radius. 
+                        It informs us about the impact parameter of a transit event.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_model_snr (Transit Signal-to-Noise-Ratio)</h3>
+                    <div>
+                        A metric representing the signal-to-noise ratio of a transit event, calculated by normalizing the transit depth by the mean uncertainty in the flux during the transits. 
+                        It assesses the significance of transit signals.
+                    </div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div>
+                    <h3>koi_score</h3>
+                    <div>
+                        A value ranging from 0 to 1 that represents the confidence level in the disposition of a KOI. 
+                        Higher scores indicate greater confidence in a KOI as a candidate for further study, while lower scores suggest lower confidence, especially for potential false positives.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_slogg (Stellar Surface Gravity)</h3>
+                    <div>
+                        The base-10 logarithm of the surface gravity of the star, expressed in cm/s^2.
+                    </div>
+                </div>
+                <div>
+                    <h3>koi_steff (Stellar Effective Temperature)</h3>
+                    <div>
+                        The photospheric temperature of the star, measured in Kelvin, characterizes the star's surface temperature.
+                    </div>
+                </div>
+                <div>
+                    <h3>probability</h3>
+                    <div>
+                        It represents the confidence level in the accuracy of the selected data. To retrain our model, we typically choose data with a probability threshold of 0.75 or higher to ensure high certainty.
+                    </div>
+                </div>
+                <div>
+                    <h3>ra (Right Ascension)</h3>
+                    <div>
+                        The celestial coordinate that specifies the east-west position of a star in the sky, measured in degrees, serving as the astronomical equivalent of longitude. 
+                        It helps locate and track celestial objects as they appear to move due to Earth's rotation.
+                    </div>
+                </div>
+                <div>
+                    <h3>source</h3>
+                    <div>
+                        The name of the original client that sent the data.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to parse URL parameters and extract the 'id' parameter
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+    
+        // Fetch the 'id' parameter from the URL
+        const idParam = getParameterByName('id');
+    
+        // Check if the 'id' parameter exists and is not empty
+        if (idParam) {
+            // Fetch data from the server using the ID
+            fetch(`/get_data_from_id/${idParam}`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('data-info');
+                    const table = document.createElement('table');
+    
+                    // Create table header
+                    const headerRow = table.insertRow(0);
+                    for (const key in data[0]) {
+                        if (key !== 'id') { // Skip adding the 'id' column to the header
+                            const headerCell = headerRow.insertCell(-1);
+                            headerCell.innerHTML = key;
+                            headerCell.classList.add('first-row-cell');
+                        }
+                    }
+    
+                    // Create table rows and cells
+                    let rowIndex = 1; // Initialize a counter for row IDs
+    
+                    data.forEach(item => {
+                        const row = table.insertRow(-1);
+    
+                        let rowContainsConfirmed = false; // Flag to track if the row contains "CONFIRMED"
+                        let rowContainsFalsePositive = false;
+    
+                        for (const key in item) {
+                            if (key !== 'id') { // Skip adding the 'id' column to the row cells
+                                const cell = row.insertCell(-1);
+                                cell.innerHTML = item[key];
+                            }
+                        }
+                    });
+    
+                    container.appendChild(table);
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            // Handle the case where 'id' parameter is not found or empty
+            const dataInfoContainer = document.getElementById('data-info');
+            dataInfoContainer.innerHTML = '<p>ID not found.</p>';
+        }
+    </script>
+    
+    
+{% endblock %}
