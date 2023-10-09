@@ -9,7 +9,7 @@ To get started with ExoWeb, follow these steps:
 1. Clone the repository from GitHub:
 
    ```shell
-   git clone https://github.com/hamzabamohammed/exoweb.git
+   git clone https://github.com/exowebai/stable.git
    ```
 
 2. Install the required packages:
@@ -21,7 +21,7 @@ To get started with ExoWeb, follow these steps:
 3. Run the system:
 
    ```shell
-   python exoweb.py
+   python system.py
    ```
 
 ## Usage
